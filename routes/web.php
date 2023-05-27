@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return view('test');
+/* group routing stundent controller */
+Route::group(['prefix' => 'students'], function () {
+    Route::get('/', [StudentsController::class, 'index']);
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
