@@ -20,7 +20,9 @@ Route::get('/', function () {
 
 /* group routing stundent controller */
 Route::group(['prefix' => 'students'], function () {
-    Route::get('/', [StudentsController::class, 'index']);
+    Route::get('/', [StudentsController::class, 'index'])->name('students.index');
+    Route::get('/create', [StudentsController::class, 'create'])->name('students.create');
+    Route::post('/store', [StudentsController::class, 'store'])->name('students.store');
 });
 
 

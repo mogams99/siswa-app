@@ -1,4 +1,12 @@
 @extends('templates.default')
+@php
+    $title = 'Student';
+    $preTitle = 'All List';
+@endphp
+
+@push('page-action')
+    <a href="{{ route('students.create') }}" class="btn btn-primary">Add New Student</a>
+@endpush
 
 @section('content')
 <div class="row">
