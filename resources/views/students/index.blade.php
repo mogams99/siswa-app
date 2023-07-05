@@ -34,7 +34,14 @@
                                 <td class="text-muted">{{ $item->address }}</td>
                                 <td class="text-muted">{{ $item->phone_number }}</td>
                                 <td class="text-muted">{{ $item->class }}</td>
-                                <td><a href="#">Edit</a></td>
+                                <td>
+                                    <a href="{{ route('students.edit', ['student' => $item->id]) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('students.destroy', ['student' => $item->id]) }}" method="POST" class="d-inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
