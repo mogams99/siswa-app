@@ -47,13 +47,13 @@ class StudentsController extends Controller
         $student->updated_at = Carbon::now();
         $student->save();
 
-        return redirect()->route('students.index')->with('success', 'Student has been updated!');
+        return redirect()->route('students.index')->with('info', 'Student has been updated!');
     }
 
     public function destroy(Student $student)
     {
         $student->delete();
 
-        return redirect()->route('students.index')->with('success', 'Student has been deleted!');
+        return redirect()->route('students.index')->with('danger', 'Student has been deleted!');
     }
 }
