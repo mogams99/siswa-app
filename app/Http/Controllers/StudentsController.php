@@ -11,7 +11,7 @@ class StudentsController extends Controller
     //
     public function index(Student $student)
     {
-        $data = $student->all();
+        $data = $student->latest()->get();
 
         return view('students.index', compact('data'));
     }
@@ -23,6 +23,15 @@ class StudentsController extends Controller
 
     public function store(Request $request, Student $student)
     {
+        /* set validate to request */
+        $this->validate($request, [
+            'name' => ['required', 'min:5', 'max:255'], 
+            'address' => ['required', 'min:5', 'max:255'],
+            'phone_number' => ['required', 'numeric', 'digits_between:10,12'], 
+            'class' => ['required']
+        ]);
+
+        /* processing to create new students */
         $student->name = $request->name;
         $student->address = $request->address;
         $student->phone_number = $request->phone_number;
@@ -30,6 +39,7 @@ class StudentsController extends Controller
         $student->created_at = Carbon::now();
         $student->save();
 
+        /* send result to view */
         return redirect()->route('students.index')->with('success', 'Student has been created!');
     }
 
@@ -40,6 +50,15 @@ class StudentsController extends Controller
 
     public function update(Request $request, Student $student)
     {
+        /* set validate to request */
+        $this->validate($request, [
+            'name' => ['required', 'min:5', 'max:255'], 
+            'address' => ['required', 'min:5', 'max:255'],
+            'phone_number' => ['required', 'numeric', 'digits_between:10,12'], 
+            'class' => ['required']
+        ]);
+
+        /* processing to update data */
         $student->name = $request->name;
         $student->address = $request->address;
         $student->phone_number = $request->phone_number;
@@ -47,6 +66,7 @@ class StudentsController extends Controller
         $student->updated_at = Carbon::now();
         $student->save();
 
+        /* send result to view */
         return redirect()->route('students.index')->with('info', 'Student has been updated!');
     }
 

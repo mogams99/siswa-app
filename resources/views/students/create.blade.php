@@ -10,36 +10,53 @@
 
         <form class="card" action="{{ route('students.store') }}" method="POST">
             @csrf
-            <!-- <div class="card-header">
-                <h3 class="card-title">Basic form</h3>
-            </div> -->
             <div class="card-body">
                 <div class="mb-3">
-                    <label class="form-label required">Name</label>
+                    <label class="form-label">Name</label>
                     <div>
-                        <input type="text" class="form-control" name="name" id="name">
-                        <!-- <small class="form-hint">We'll never share your email with anyone else.</small> -->
+                        <input type="text" class="form-control" 
+                            @error('name') is-invalid @enderror 
+                            name="name" 
+                            value="{{ old('name') }}">
+                        @error('name')
+                            <small class="form-hint text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label required">Address</label>
                     <div>
-                        <input type="text" class="form-control" name="address" id="address">
-                        <!-- <small class="form-hint">We'll never share your email with anyone else.</small> -->
+                        <input type="text" class="form-control" 
+                            @error('address') is-invalid @enderror 
+                            name="address" 
+                            value="{{ old('address') }}">
+                        @error('address')
+                            <small class="form-hint text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label required">Phone</label>
                     <div>
-                        <input type="text" class="form-control" name="phone_number" id="phone_number">
-                        <!-- <small class="form-hint">We'll never share your email with anyone else.</small> -->
+                        <input type="text" class="form-control" 
+                            @error('phone_number') is-invalid @enderror 
+                            name="phone_number" 
+                            value="{{ old('phone_number') }}">
+                        @error('phone_number')
+                            <small class="form-hint text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Class</label>
                     <div>
-                        <input type="text" class="form-control" name="class" id="class">
-                        <!-- <small class="form-hint">We'll never share your email with anyone else.</small> -->
+                        <input type="text" class="form-control" 
+                            @error('class') is-invalid @enderror 
+                            name="class" 
+                            value="{{ old('class') }}">
+                        @error('class')
+                            <small class="form-hint text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
             </div>
