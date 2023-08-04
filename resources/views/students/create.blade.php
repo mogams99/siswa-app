@@ -12,7 +12,7 @@
             @csrf
             <div class="card-body">
                 <div class="mb-3">
-                    <label class="form-label">Name</label>
+                    <label class="form-label required">Name</label>
                     <div>
                         <input type="text" class="form-control" 
                             @error('name') is-invalid @enderror 
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Class</label>
+                    <label class="form-label required">Class</label>
                     <div>
                         <input type="text" class="form-control" 
                             @error('class') is-invalid @enderror 
