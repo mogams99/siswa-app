@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class StudentsController extends Controller
 {
-    //
     public function index(Student $student)
     {
         $data = $student->latest()->get();
@@ -26,13 +25,21 @@ class StudentsController extends Controller
         /* set validate to request */
         $this->validate($request, [
             'name' => ['required', 'min:5', 'max:255'], 
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'address' => ['required', 'min:5', 'max:255'],
             'phone_number' => ['required', 'numeric', 'digits_between:10,12'], 
             'class' => ['required']
         ]);
 
+        /* processing to upload photo */
+        $photo = null;
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo')->store('photos/students');
+        }
+
         /* processing to create new students */
         $student->name = $request->name;
+        $student->photo = $photo;
         $student->address = $request->address;
         $student->phone_number = $request->phone_number;
         $student->class = $request->class;

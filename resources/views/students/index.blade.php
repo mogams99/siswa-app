@@ -20,6 +20,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Name</th>
+                                <th>Photo</th>
                                 <th>Address</th>
                                 <th>Phone</th>
                                 <th>Class</th>
@@ -31,6 +32,9 @@
                             <tr>
                                 <td><span class="text-muted">{{ $loop->iteration }}</span></td>
                                 <td class="text-muted">{{ $item->name }}</td>
+                                <td class="text-muted">
+                                    <img src="{{ asset('storage/'.$item->photo) }}" alt="{{ $item->name }}" class="rounded-circle" width="50" height="50">
+                                </td>
                                 <td class="text-muted">{{ $item->address }}</td>
                                 <td class="text-muted">{{ $item->phone_number }}</td>
                                 <td class="text-muted">{{ $item->class }}</td>
