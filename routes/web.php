@@ -30,7 +30,7 @@ Route::get('/', function () {
 // });
 
 /* define route resource of stundents controller */
-Route::resource('students', StudentsController::class);
+Route::resource('students', StudentsController::class)->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
