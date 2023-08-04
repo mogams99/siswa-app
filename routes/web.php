@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\TeacherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +20,17 @@ Route::get('/', function () {
 });
 
 /* group routing stundent controller */
-Route::group(['prefix' => 'students'], function () {
-    Route::get('/', [StudentsController::class, 'index'])->name('students.index');
-    Route::get('/create', [StudentsController::class, 'create'])->name('students.create');
-    Route::post('/store', [StudentsController::class, 'store'])->name('students.store');
-    Route::get('/{student}/edit', [StudentsController::class, 'edit'])->name('students.edit');
-    Route::put('/{student}/update', [StudentsController::class, 'update'])->name('students.update');
-    Route::delete('/{student}/destroy', [StudentsController::class, 'destroy'])->name('students.destroy');
-});
+// Route::group(['prefix' => 'students'], function () {
+//     Route::get('/', [StudentsController::class, 'index'])->name('students.index');
+//     Route::get('/create', [StudentsController::class, 'create'])->name('students.create');
+//     Route::post('/store', [StudentsController::class, 'store'])->name('students.store');
+//     Route::get('/{student}/edit', [StudentsController::class, 'edit'])->name('students.edit');
+//     Route::put('/{student}/update', [StudentsController::class, 'update'])->name('students.update');
+//     Route::delete('/{student}/destroy', [StudentsController::class, 'destroy'])->name('students.destroy');
+// });
 
+/* define route resource of stundents controller */
+Route::resource('students', StudentsController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
