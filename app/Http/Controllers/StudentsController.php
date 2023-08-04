@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StudentsController extends Controller
 {
@@ -60,13 +61,25 @@ class StudentsController extends Controller
         /* set validate to request */
         $this->validate($request, [
             'name' => ['required', 'min:5', 'max:255'], 
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'address' => ['required', 'min:5', 'max:255'],
             'phone_number' => ['required', 'numeric', 'digits_between:10,12'], 
             'class' => ['required']
         ]);
 
+        /* processing to upload photo */
+        $photo = null;
+        $get_path = $student->photo; 
+        if ($request->hasFile('photo')) {
+            if (Storage::exists($get_path)) {
+                Storage::delete($get_path);
+            }
+            $photo = $request->file('photo')->store('photos/students');
+        }
+
         /* processing to update data */
         $student->name = $request->name;
+        $student->photo = $photo;
         $student->address = $request->address;
         $student->phone_number = $request->phone_number;
         $student->class = $request->class;
