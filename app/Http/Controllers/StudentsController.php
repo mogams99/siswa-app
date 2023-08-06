@@ -71,6 +71,9 @@ class StudentsController extends Controller
         $photo = null;
         $get_path = $student->photo; 
         if ($request->hasFile('photo')) {
+            /* ternary when path is null */
+            $get_path = $get_path == null ? $request->file('photo')->store('photos/students') : $get_path;
+
             if (Storage::exists($get_path)) {
                 Storage::delete($get_path);
             }
