@@ -17,8 +17,15 @@ class Student extends Model
         'address',
         'phone_number',
         'class',
+        'student_class_id',
     ];
     protected $dates = [
         'deleted_at',
     ];
+
+    public function studentClass() {
+        $result = $this->belongsTo(StudentClass::class, 'student_class_id', 'id');
+
+        return $result;
+    }
 }
