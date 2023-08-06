@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\StudentClass;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +19,9 @@ class StudentsController extends Controller
 
     public function create()
     {
-        return view('students.create');
+        $classes = StudentClass::select('id', 'name', 'slug')->get();
+
+        return view('students.create', compact('classes'));
     }
 
     public function store(Request $request, Student $student)
@@ -29,7 +32,7 @@ class StudentsController extends Controller
             'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'address' => ['required', 'min:5', 'max:255'],
             'phone_number' => ['required', 'numeric', 'digits_between:10,12'], 
-            'class' => ['required']
+            'student_class_id' => ['required']
         ]);
 
         /* processing to upload photo */
@@ -43,7 +46,7 @@ class StudentsController extends Controller
         $student->photo = $photo;
         $student->address = $request->address;
         $student->phone_number = $request->phone_number;
-        $student->class = $request->class;
+        $student->student_class_id = $request->student_class_id;
         $student->created_at = Carbon::now();
         $student->save();
 
