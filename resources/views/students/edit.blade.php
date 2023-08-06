@@ -43,9 +43,9 @@ $preTitle = 'Edit Create';
                 <div class="mb-3">
                     <label class="form-label required">Class</label>
                     <select name="student_class_id" id="student_class_id" class="form-select @error('student_class_id') is-invalid @enderror" value="{{ old('student_class_id') }}">
-                        <option value="">-- Choose Class --</option>
+                        <option value="" disabled>-- Choose Class --</option>
                         @foreach ($classes as $class)
-                        <option value="{{ $class->id }}" @selected( $class->id == $student->student_class_id ) selected @endselected>
+                        <option value="{{ $class->id }}" @selected( $class->id == $student->student_class_id )>
                             {{ $class->name }}
                         </option>
                         @endforeach
