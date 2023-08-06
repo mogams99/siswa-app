@@ -37,7 +37,7 @@
                                 </td>
                                 <td class="text-muted">{{ $item->address }}</td>
                                 <td class="text-muted">{{ $item->phone_number }}</td>
-                                <td class="text-muted">{{ $item->class }}</td>
+                                <td class="text-muted">{{ $item->studentClass <> null ? $item->studentClass->name : 'Not registered' }}</td>
                                 <td>
                                     <a href="{{ route('students.edit', ['student' => $item->id]) }}" class="btn btn-sm btn-primary">Edit</a>
                                     <form action="{{ route('students.destroy', ['student' => $item->id]) }}" method="POST" class="d-inline-block">
