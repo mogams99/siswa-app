@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             //
-            $table->foreignId('class_id')->after('id')->nullable()->constrained('student_classes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('student_class_id')->after('id')->nullable()->constrained('student_classes')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             //
-            $table->dropForeign(['class_id']);
+            $table->dropForeign(['student_class_id']);
         });
     }
 };
