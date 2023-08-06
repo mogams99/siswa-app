@@ -43,8 +43,13 @@ $preTitle = 'Form Create';
                 </div>
                 <div class="mb-3">
                     <label class="form-label required">Class</label>
-                    <input type="text" class="form-control" @error('class') is-invalid @enderror name="class" value="{{ old('class') }}">
-                    @error('class')
+                    <select name="student_class_id" id="student_class_id" class="form-select @error('student_class_id') is-invalid @enderror" value="{{ old('student_class_id') }}">
+                        <option value="">-- Choose Class --</option>
+                        @foreach ($classes as $class)
+                        <option value="{{ $class->id }}">{{ $class->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('student_class_id')
                     <small class="form-hint text-danger">{{ $message }}</small>
                     @enderror
                 </div>
