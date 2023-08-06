@@ -20,4 +20,9 @@ class StudentClass extends Model
     protected $dates = [
         'deleted_at',
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'class_id', 'id');
+    }
 }
