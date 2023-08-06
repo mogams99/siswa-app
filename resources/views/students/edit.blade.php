@@ -41,9 +41,16 @@ $preTitle = 'Edit Create';
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Class</label>
-                    <input type="text" class="form-control" name="class" id="class" value="{{ old('class') ?? $student->class }}" @error('class') is-invalid @enderror>
-                    @error('class')
+                    <label class="form-label required">Class</label>
+                    <select name="student_class_id" id="student_class_id" class="form-select @error('student_class_id') is-invalid @enderror" value="{{ old('student_class_id') }}">
+                        <option value="">-- Choose Class --</option>
+                        @foreach ($classes as $class)
+                        <option value="{{ $class->id }}" @selected( $class->id == $student->student_class_id ) selected @endselected>
+                            {{ $class->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                    @error('student_class_id')
                     <small class="form-hint text-danger">{{ $message }}</small>
                     @enderror
                 </div>

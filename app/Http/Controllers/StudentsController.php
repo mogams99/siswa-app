@@ -20,7 +20,6 @@ class StudentsController extends Controller
     public function create()
     {
         $classes = StudentClass::select('id', 'name', 'slug')->get();
-
         return view('students.create', compact('classes'));
     }
 
@@ -56,18 +55,21 @@ class StudentsController extends Controller
 
     public function edit(Student $student)
     {
-        return view('students.edit', compact('student'));
+        $classes = StudentClass::select('id', 'name', 'slug')->get();
+        return view('students.edit', compact('student', 'classes'));
     }
 
     public function update(Request $request, Student $student)
     {
+        // dd($request->all(), 'request all'); // for debugging
+
         /* set validate to request */
         $this->validate($request, [
             'name' => ['required', 'min:5', 'max:255'], 
             'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'address' => ['required', 'min:5', 'max:255'],
             'phone_number' => ['required', 'numeric', 'digits_between:10,12'], 
-            'class' => ['required']
+            'student_class_id' => ['required']
         ]);
 
         /* processing to upload photo */
@@ -88,7 +90,7 @@ class StudentsController extends Controller
         $student->photo = $photo;
         $student->address = $request->address;
         $student->phone_number = $request->phone_number;
-        $student->class = $request->class;
+        $student->student_class_id = $request->student_class_id;
         $student->updated_at = Carbon::now();
         $student->save();
 
