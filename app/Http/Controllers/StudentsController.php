@@ -61,8 +61,6 @@ class StudentsController extends Controller
 
     public function update(Request $request, Student $student)
     {
-        // dd($request->all(), 'request all'); // for debugging
-
         /* set validate to request */
         $this->validate($request, [
             'name' => ['required', 'min:5', 'max:255'], 
@@ -73,15 +71,11 @@ class StudentsController extends Controller
         ]);
 
         /* processing to upload photo */
-        $photo = null;
-        $get_path = $student->photo; 
+        $photo = $student->photo; 
         if ($request->hasFile('photo')) {
             /* ternary when path is null */
-            $get_path = $get_path == null ? $request->file('photo')->store('photos/students') : $get_path;
-
-            if (Storage::exists($get_path)) {
-                Storage::delete($get_path);
-            }
+            $photo == null ? $request->file('photo')->store('photos/students') : $photo;
+            $photo <> null ? Storage::exists($photo) ?? Storage::delete($photo) : $photo;
             $photo = $request->file('photo')->store('photos/students');
         }
 
