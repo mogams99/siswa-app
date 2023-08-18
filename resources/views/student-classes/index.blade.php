@@ -28,7 +28,9 @@
                             @foreach($data as $item)
                             <tr>
                                 <td><span class="text-muted">{{ $loop->iteration }}</span></td>
-                                <td class="text-muted">{{ $item->name }}</td>
+                                <td class="text-muted">
+                                    <a href="{{ route('student-classes.show', [ 'student_class' => $item->id ]) }}">{{ $item->name }}</a>
+                                </td>
                                 <td class="text-muted">{{ $item->slug }}</td>
                                 <td>
                                     <a href="{{ route('student-classes.edit', ['student_class' => $item->id]) }}" class="btn btn-sm btn-primary">Edit</a>
