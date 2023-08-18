@@ -15,6 +15,8 @@ class StudentClass extends Model
     protected $fillable = [
         'name',
         'slug',
+        'created_at',
+        'updated_at'
     ];
 
     protected $dates = [
