@@ -60,9 +60,9 @@ class StudentClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(StudentClass $student_class)
     {
-        //
+        return view ('student-classes.show', compact('student_class'));
     }
 
     /**
