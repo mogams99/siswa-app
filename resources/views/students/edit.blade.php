@@ -1,7 +1,7 @@
 @extends('templates.default')
 @php
 $title = 'Student';
-$preTitle = 'Edit Create';
+$preTitle = 'Edit Form';
 @endphp
 
 @section('content')
