@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentClass;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StudentClassController extends Controller
@@ -46,6 +47,7 @@ class StudentClassController extends Controller
         /* processing to add new data */
         $student_class->name = $request->name;
         $student_class->slug = $request->slug;
+        $student_class->created_at = Carbon::now();
         $student_class->save();
 
         /* send result to view */
@@ -81,9 +83,22 @@ class StudentClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, StudentClass $student_class)
     {
-        //
+        /* set validate to request */
+        $this->validate($request, [
+            'name' => ['required', 'min:5', 'max:255'],
+            'slug' => ['required', 'min:5', 'max:255']
+        ]);
+
+        /* processing to update data */
+        $student_class->name = $request->name;
+        $student_class->slug = $request->slug;
+        $student_class->updated_at = Carbon::now();
+        $student_class->save();
+
+        /* send result to view */
+        return redirect()->route('student-classes.index')->with('info', 'Student Class has been updated!');
     }
 
     /**
@@ -92,8 +107,10 @@ class StudentClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(StudentClass $student_class)
     {
-        //
+        $student_class->delete();
+
+        return redirect()->route('student-classes.index')->with('danger', 'Student Class has been deleted!');
     }
 }
