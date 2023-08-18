@@ -26,7 +26,7 @@ class StudentClassController extends Controller
      */
     public function create()
     {
-        //
+        return view ('student-classes.create');
     }
 
     /**
@@ -35,9 +35,21 @@ class StudentClassController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, StudentClass $student_class)
     {
-        //
+        /* set validate to request */
+        $this->validate($request, [
+            'name' => ['required', 'min:5', 'max:255'],
+            'slug' => ['required', 'min:5', 'max:255']
+        ]);
+
+        /* processing to add new data */
+        $student_class->name = $request->name;
+        $student_class->slug = $request->slug;
+        $student_class->save();
+
+        /* send result to view */
+        return redirect()->route('student-classes.index')->with('success', 'Student Class has been created!');
     }
 
     /**
@@ -57,9 +69,9 @@ class StudentClassController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(StudentClass $student_class)
     {
-        //
+        return view ('student-classes.edit', compact('student_class'));
     }
 
     /**
